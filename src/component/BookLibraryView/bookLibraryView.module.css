@@ -1,8 +1,3 @@
-.modalBody {
-  padding: 10px;
-  /* background-color: #edf6fc; */
-}
-
 .heading {
   padding: 15px;
   text-align: center;
@@ -14,100 +9,32 @@
   border-bottom: 1px solid #2f363f;
 }
 
-.select {
-  margin: auto;
-  max-width: 425px;
-  font-family: Avenir-Book;
-  font-size: 14px;
-  font-weight: 400;
+.inputContainer {
+  padding-top: 10px;
+  padding-bottom: 25px;
+  height: 35px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
-.searchRoutes {
-  padding: 15px;
+.button {
+  color: white;
+  font-size: 14px;
+  margin-top: 15px;
+  width: 100%;
+  max-width: 447px;
+  height: 40px;
+  background: rgb(3, 120, 255);
+  border-radius: 8px;
+  margin-bottom: 60px;
+  cursor: pointer;
 }
 
 /* cards view */
 
 @import url("https://fonts.googleapis.com/css?family=Comfortaa|Patua+One");
 
-/* Card Based Layout - Base styles */
-
-.bookLibraryView {
-  padding: 10px;
-}
-
-img {
-  display: block;
-  border: 0;
-  width: 100%;
-  height: auto;
-}
-
-.card {
-  border-radius: 4px;
-  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.13);
-  background: white;
-  margin-bottom: 2em;
-}
-
-.cardcontent {
-  padding: 0.8em;
-}
-
-.cardcontent h2 {
-  margin-top: 0;
-  margin-bottom: 0.5em;
-  font-weight: bold;
-}
-
-.cardcontent p {
-  font-size: 80%;
-}
-
-.bookInfo {
+.checkList {
   display: flex;
-  position: relative;
-}
-
-.bookCount {
-  min-width: 20px;
-  color: white;
-  text-align: center;
-  background: rgb(3, 120, 255);
-  position: absolute;
-  right: 0;
-}
-
-.bookGenre {
-  font-size: 12px;
-}
-
-.cards {
-  margin-bottom: 50px;
-}
-
-/* Flexbox stuff */
-
-@media screen and (min-width: 40em) {
-  .cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-
-  .card {
-    flex: 0 1 calc(50% - 1em);
-  }
-}
-
-@media screen and (min-width: 60em) {
-  .card {
-    flex: 0 1 calc(25% - 1em);
-  }
-}
-
-@media screen and (max-width: 425px) {
-  .bookInfo > h2 {
-    width: 200px;
-  }
 }

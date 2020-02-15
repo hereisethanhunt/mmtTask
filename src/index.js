@@ -15,7 +15,12 @@ let loadData = {
     localStorage.getItem("BookData") &&
     Object.keys(localStorage.getItem("BookData")).length > 0
       ? JSON.parse(localStorage.getItem("BookData"))
-      : LoadInitialBookData()
+      : LoadInitialBookData(),
+  CheckedData:
+    localStorage.getItem("CheckedData") &&
+    Object.keys(localStorage.getItem("CheckedData")).length > 0
+      ? JSON.parse(localStorage.getItem("CheckedData"))
+      : []
 };
 
 const bookRoutes = bookLibraryRoutes(); // book - container

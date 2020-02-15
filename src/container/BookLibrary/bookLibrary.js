@@ -1,26 +1,24 @@
 import React from "react";
-import Tabs from "./tabs";
-import BookLibraryEdit from "../../component/BookLibraryEdit";
 import BookLibraryView from "../../component/BookLibraryView";
 import BookLibraryAdd from "../../component/BookLibraryAdd";
 import "./bookLibrary.css";
 
-function BookLibrary() {
-  return (
-    <div className="BookLibrary">
-      <Tabs>
-        <div label="Add Books" icon="fas fa-folder-plus">
+class BookLibrary extends React.Component {
+  componentDidMount() {
+    if (!localStorage.getItem("counter")) localStorage.setItem("counter", "4");
+  }
+  render() {
+    return (
+      <div className="BookLibrary">
+        <div label="Add Books">
           <BookLibraryAdd />
         </div>
-        <div label="View Books" icon="fas fa-list">
+        <div label="View Books">
           <BookLibraryView />
         </div>
-        <div label="Edit Books" icon="fas fa-edit">
-          <BookLibraryEdit />
-        </div>
-      </Tabs>
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
 export default BookLibrary;

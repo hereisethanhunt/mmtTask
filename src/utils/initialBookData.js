@@ -1,37 +1,19 @@
-// import image01 from "../images/defaultBook.png";
-
 const BookData = [
   {
     id: 0,
-    name: "Harry Potter 1",
-    author: "Vishal",
-    count: 5,
-    genre: "Horror",
-    description: "Harry Potter is a noob."
+    name: "Harry Potter 1"
   },
   {
     id: 1,
-    name: "Harry Potter 2",
-    author: "Vishal",
-    count: 5,
-    genre: "Horror",
-    description: "Harry Potter is a noob."
+    name: "Harry Potter 2"
   },
   {
     id: 2,
-    name: "Harry Potter 3",
-    author: "Vishal",
-    count: 5,
-    genre: "Horror",
-    description: "Harry Potter is a noob."
+    name: "Harry Potter 3"
   },
   {
     id: 3,
-    name: "Harry Potter 4",
-    author: "Vishal",
-    count: 5,
-    genre: "Horror",
-    description: "Harry Potter is a noob."
+    name: "Harry Potter 4"
   }
 ];
 

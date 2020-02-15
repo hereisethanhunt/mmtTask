@@ -1,95 +1,103 @@
 import React from "react";
-import Select from "react-select";
 import { connect } from "react-redux";
-import defImage from "../../images/defaultBook.png";
 import styles from "./bookLibraryView.module.css";
+import {
+  addCheckedBook,
+  removeBook,
+  removeCheckedBook,
+  removeCheckedBookAll
+} from "./actions";
+
+import { addBook } from "../BookLibraryAdd/actions";
+import { bindActionCreators } from "redux";
 
 class BookLibraryView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookList: [],
-      selectedBook: "",
-      booksCurrentlyInView: []
+      checkedList: []
     };
   }
 
-  componentDidMount() {
-    this.setSearchDropdown();
-    this.setBooksView();
-  }
-
-  setBooksView = () => {
+  handleChange = (e, id) => {
     const { BookData } = this.props;
-    this.setState({ booksCurrentlyInView: BookData });
+    var addtochecked = BookData.filter(obj => obj.id === id);
+    this.props.addCheckedBook(...addtochecked);
+    this.props.removeBook(id);
   };
 
-  setSearchDropdown = () => {
-    let bookList = [];
-    let list = this.props.BookData;
-    list.forEach(data => {
-      bookList.push({
-        label: data.name + " - " + data.author,
-        value: data.name
-      });
-    });
-    this.setState({ bookList });
+  handleChangeChecked = (e, id) => {
+    const { CheckedData } = this.props;
+    // let list = [...this.state.checkedList];
+    // let status = e.target.checked;
+    // let checkedList = [];
+    // if (status) checkedList = list.push(id);
+    // else
+    //   checkedList = list.filter(obj => {
+    //     return obj.id !== id;
+    //   });
+    // this.setState({ checkedList });
+    var addfromchecked = CheckedData.filter(obj => obj.id === id);
+    this.props.addBook(...addfromchecked);
+    this.props.removeCheckedBook(id);
   };
 
-  onSelectBook = el => {
-    const { BookData } = this.props;
-    this.setState({ selectedBook: el });
-    if (!!el) {
-      let filteredData = BookData.filter(obj => obj.name === el.value);
-      this.setState({ booksCurrentlyInView: filteredData });
-    } else this.setBooksView();
+  deleteSelected = () => {
+    this.props.removeCheckedBookAll();
   };
 
   render() {
-    const { booksCurrentlyInView, bookList, selectedBook } = this.state;
+    console.log(this.state.checkedList, "importanty");
+    const { BookData, CheckedData } = this.props;
     return (
       <div className={styles.bookLibraryView}>
         <div className={styles.heading}>{"VIEW BOOK"}</div>
-        <div className={styles.searchRoutes}>
-          <Select
-            isClearable={true}
-            isSearchable={true}
-            options={bookList}
-            value={selectedBook}
-            placeholder="Search or select a Book"
-            autoBlur={true}
-            onChange={this.onSelectBook}
-            className={styles.select}
-          ></Select>
-        </div>
 
         <main>
-          <section className={styles.cards}>
-            {booksCurrentlyInView &&
-              booksCurrentlyInView.length &&
-              booksCurrentlyInView.length > 0 &&
-              booksCurrentlyInView.map(el => {
+          <section>
+            {BookData &&
+              BookData.length &&
+              BookData.length > 0 &&
+              BookData.map(el => {
                 return (
-                  <article className={styles.card} key={el.name + el.author}>
-                    <picture className={styles.thumbnail}>
-                      <img
-                        src={defImage}
-                        alt="A banana that looks like a bird"
+                  <article className={styles.checkList} key={el.name}>
+                    <div>
+                      <input
+                        type="checkbox"
+                        onChange={e => this.handleChange(e, el.id)}
                       />
-                    </picture>
-                    <div className={styles.cardcontent}>
-                      <div className={styles.bookInfo}>
-                        <h2>{el.name + " - by " + el.author}</h2>
-                        <div className={styles.bookCount}>{el.count}</div>
-                      </div>
-                      <div className={styles.bookGenre}>
-                        {"GENRE - " + el.genre}
-                      </div>
-                      <p>{el.description}</p>
                     </div>
+                    <div>{el.name}</div>
                   </article>
                 );
               })}
+
+            <hr />
+            <div className={styles.heading}>{"SELECTED BOOK"}</div>
+            {CheckedData && CheckedData.length && CheckedData.length > 0
+              ? CheckedData.map(el => {
+                  return (
+                    <article className={styles.checkList} key={el.name}>
+                      <div>
+                        <input
+                          type="checkbox"
+                          checked={this.state.isChecked}
+                          onChange={e => this.handleChangeChecked(e, el.id)}
+                          id={el.id}
+                        />
+                      </div>
+                      <div>{el.name}</div>
+                    </article>
+                  );
+                })
+              : null}
+            {CheckedData && CheckedData.length && CheckedData.length > 0 ? (
+              <div className={styles.inputContainer}>
+                <button className={styles.button} onClick={this.deleteSelected}>
+                  Clear all completed
+                </button>
+              </div>
+            ) : null}
           </section>
         </main>
       </div>
@@ -97,8 +105,21 @@ class BookLibraryView extends React.Component {
   }
 }
 
-function mapStateToProps({ BookData }) {
-  return { BookData };
+function mapStateToProps({ BookData, CheckedData }) {
+  return { BookData, CheckedData };
 }
 
-export default connect(mapStateToProps)(BookLibraryView);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(
+    {
+      addCheckedBook,
+      removeBook,
+      addBook,
+      removeCheckedBook,
+      removeCheckedBookAll
+    },
+    dispatch
+  );
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookLibraryView);
